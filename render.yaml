@@ -7,7 +7,7 @@ services:
     rootDir: frontend
     envVars:
       - key: REACT_APP_BACKEND_URL
-        value: "https://budget-tracker-app-backend.onrender.com"
+        value: "https://budget-tracker-app-backend-41ib.onrender.com"
 
   - type: web
     name: budget-tracker-backend
