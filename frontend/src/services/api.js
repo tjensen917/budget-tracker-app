@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "https://budget-tracker-app-backend-41ib.onrender.com";
 
 export const addExpense = (expense, userId) => 
   axios.post(`${API_URL}/add-expense`, { ...expense, user_id: userId });
