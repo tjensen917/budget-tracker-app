@@ -27,22 +27,24 @@ class Budget(db.Model):
 def add_expense():
     try:
         data = request.json  # Get JSON data from frontend
+        print("Received Data:", data)  # Debugging - Check what's received
+        user_id = data.get('user_id')
         category = data.get('category')
         amount = data.get('amount')
         date = data.get('date')
 
-        if not category or not amount or not date:
-            return jsonify({"error": "Missing required fields"}), 400
+        if not all([user_id, category, amount, date]):
+            return jsonify({"error": "Missing required fields"}), 400  # Handle missing data
 
-        new_expense = Expense(category=category, amount=amount, date=date)
+        new_expense = Expense(user_id=user_id, category=category, amount=amount, date=date)
         db.session.add(new_expense)
         db.session.commit()
 
         return jsonify({"message": "Expense added successfully"}), 201
 
     except Exception as e:
-        print("Error:", str(e))  # This will show in Render logs
-        return jsonify({"error": "Internal Server Error"}), 500
+        print("Error:", str(e))  # Logs error in Render logs
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
 
 @app.route("/expenses/<month_year>", methods=["GET"])
 def get_expenses(month_year):
