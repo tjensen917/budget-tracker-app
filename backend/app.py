@@ -23,19 +23,26 @@ class Budget(db.Model):
     user_id = db.Column(db.String(100), unique=True, nullable=False)
     total_budget = db.Column(db.Float, nullable=False)
 
-@app.route("/add-expense", methods=["POST"])
+@app.route('/add-expense', methods=['POST'])
 def add_expense():
-    data = request.json
-    new_expense = Expense(
-        user_id=data["user_id"],
-        name=data["name"],
-        amount=data["amount"],
-        category=data["category"],
-        date=datetime.now().strftime("%Y-%m"),
-    )
-    db.session.add(new_expense)
-    db.session.commit()
-    return jsonify({"message": "Expense added successfully"}), 201
+    try:
+        data = request.json  # Get JSON data from frontend
+        category = data.get('category')
+        amount = data.get('amount')
+        date = data.get('date')
+
+        if not category or not amount or not date:
+            return jsonify({"error": "Missing required fields"}), 400
+
+        new_expense = Expense(category=category, amount=amount, date=date)
+        db.session.add(new_expense)
+        db.session.commit()
+
+        return jsonify({"message": "Expense added successfully"}), 201
+
+    except Exception as e:
+        print("Error:", str(e))  # This will show in Render logs
+        return jsonify({"error": "Internal Server Error"}), 500
 
 @app.route("/expenses/<month_year>", methods=["GET"])
 def get_expenses(month_year):
