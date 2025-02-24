@@ -1,17 +1,14 @@
 services:
   - type: web
-    name: budget-tracker-app-backend
-    env: python
-    buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "gunicorn -w 4 -b 0.0.0.0:10000 app:app"
-    rootDir: backend
+    name: budget-tracker-frontend
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    rootDir: frontend
     envVars:
-      - key: DATABASE_URL
-        value: "sqlite:///instance/budget.db" # Change if using PostgreSQL
-      - key: FLASK_ENV
-        value: "production"
-      - key: PORT
-        value: "10000"
+      - key: REACT_APP_BACKEND_URL
+        value: "https://budget-tracker-app-backend.onrender.com"
+
 
   - type: web
     name: budget-tracker-frontend
