@@ -2,17 +2,20 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 CORS(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///budget_tracker.db"
+
+# Configure SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///budget_tracker.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db) # Ensure migrations are linked
 
-# Import models after db is defined
-import models
+# Import models (if stored separately)
+import backend.models  # Ensure this is correct based on your folder structure
 
 # Expense Model
 class Expense(db.Model):
