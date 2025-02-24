@@ -89,6 +89,34 @@ def delete_expense(expense_id):
     db.session.commit()
     return jsonify({"message": "Expense deleted successfully"})
 
+@app.route("/edit-expense/<int:expense_id>", methods=["PUT"])
+def edit_expense(expense_id):
+    data = request.json
+    expense = Expense.query.filter_by(id=expense_id, user_id=data["user_id"]).first()
+
+    if not expense:
+        return jsonify({"message": "Expense not found"}), 404
+
+    expense.name = data.get("name", expense.name)
+    expense.amount = data.get("amount", expense.amount)
+    expense.category = data.get("category", expense.category)
+    
+    db.session.commit()
+    return jsonify({"message": "Expense updated successfully"})
+
+@app.route("/delete-expense/<int:expense_id>", methods=["DELETE"])
+def delete_expense(expense_id):
+    user_id = request.args.get("user_id")
+    expense = Expense.query.filter_by(id=expense_id, user_id=user_id).first()
+
+    if not expense:
+        return jsonify({"message": "Expense not found"}), 404
+
+    db.session.delete(expense)
+    db.session.commit()
+    return jsonify({"message": "Expense deleted successfully"})
+
+
 @app.route("/update-budget", methods=["PUT"])
 def update_budget():
     data = request.json
