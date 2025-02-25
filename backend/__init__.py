@@ -2,26 +2,24 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-import os
 
-# Initialize extensions
+# Initialize database
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)  # Enable CORS
 
-    # Configure database
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///instance/budget.db")
+    # Database configuration
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///budget_tracker.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
-    CORS(app)
 
-    # Import and register blueprints (routes)
-    from .routes import main
-    app.register_blueprint(main)
+    # Import routes inside the app factory
+    from backend.routes import api_bp
+    app.register_blueprint(api_bp)  # Register routes
 
     return app
