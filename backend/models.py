@@ -1,4 +1,4 @@
-from .app import db
+from app import db
 
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
