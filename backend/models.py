@@ -1,9 +1,9 @@
-from . import db
+from backend import db
 
 # Expense Model
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(100), nullable=False)  # Unique user session
+    user_id = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(50), nullable=False)

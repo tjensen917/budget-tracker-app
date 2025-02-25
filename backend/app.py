@@ -1,6 +1,5 @@
-from backend import create_app, db  # Correct import
+from backend import create_app
 
-# Initialize the app using the factory function
 app = create_app()
 
 if __name__ == "__main__":
