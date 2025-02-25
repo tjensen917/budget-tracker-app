@@ -1,20 +1,27 @@
-services: 
+services:  
   - type: web
-    name: budget-tracker-frontend
+    name: budget-tracker-app-frontend
     env: node
+    rootDir: frontend
     buildCommand: "npm install && npm run build"
     startCommand: "npm start"
-    rootDir: frontend
     envVars:
       - key: REACT_APP_BACKEND_URL
         value: "https://budget-tracker-app-backend-41ib.onrender.com"
 
   - type: web
-    name: budget-tracker-backend
+    name: budget-tracker-app-backend
     env: python
     rootDir: backend
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: |
+      pip install -r requirements.txt
+      python -m flask db upgrade  # Ensures database migrations are applied
     startCommand: "gunicorn app:app"
     envVars:
       - key: DATABASE_URL
         value: "sqlite:///instance/budget.db"
+    disk:
+      name: database-storage
+      mountPath: /backend/instance
+      sizeGB: 1  # Ensures SQLite database persists
+    pythonVersion: 3.11.11  # Explicitly set Python version
