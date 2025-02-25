@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db) # Ensure migrations are linked
 
 # Import models (if stored separately)
-from .models import *  # Ensure this is correct based on your folder structure
+from models import *  # Ensure this is correct based on your folder structure
 
 # Expense Model
 class Expense(db.Model):
