@@ -20,12 +20,11 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Import models AFTER db initialization
-    with app.app_context():
-        from . import models
+    # Import models **AFTER** initializing app
+    from backend import models
 
     # Register blueprints (routes)
-    from .routes import main
+    from backend.routes import main
     app.register_blueprint(main)
 
     return app
