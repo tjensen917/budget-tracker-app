@@ -7,14 +7,14 @@ services:
     rootDir: frontend
     envVars:
       - key: REACT_APP_BACKEND_URL
-        value: "https://budget-tracker-app-backend-41ib.onrender.com"
+        value: "https://budget-tracker-app-backend-njxe.onrender.com"
 
   - type: web
     name: budget-tracker-backend
     env: python
     rootDir: backend
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "cd backend && gunicorn backend.app:app"
+    startCommand: "gunicorn 'backend.app:create_app()'"
     envVars:
       - key: DATABASE_URL
         value: "sqlite:///instance/budget_tracker.db"

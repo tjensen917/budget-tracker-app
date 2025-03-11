@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://budget-tracker-app-backend-41ib.onrender.com";
+const API_URL = "https://budget-tracker-app-backend-njxe.onrender.com";
 
 export const addExpense = (expense, userId) => 
   axios.post(`${API_URL}/add-expense`, { ...expense, user_id: userId });
