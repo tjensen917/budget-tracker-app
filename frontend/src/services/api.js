@@ -2,8 +2,15 @@ import axios from "axios";
 
 const API_URL = "https://budget-tracker-app-backend-njxe.onrender.com";
 
-export const addExpense = (expense, userId) => 
-  axios.post(`${API_URL}/add-expense`, { ...expense, user_id: userId });
+export const addExpense = async (expenseData) => {
+  return await axios.post(`${BASE_URL}/add-expense`, {
+      user_id: expenseData.user_id || "test-user",  // Ensure this is included
+      name: expenseData.name,
+      amount: parseFloat(expenseData.amount),  // Convert to float
+      category: expenseData.category,
+      date: expenseData.date
+  });
+};
 
 export const getExpenses = (monthYear, userId) => 
   axios.get(`${API_URL}/expenses/${monthYear}`, { params: { user_id: userId } });
