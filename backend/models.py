@@ -1,4 +1,4 @@
-from backend import db
+from app import db
 
 # Expense Model
 class Expense(db.Model):

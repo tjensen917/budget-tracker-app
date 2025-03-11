@@ -1,6 +1,7 @@
 from flask import Flask
 from config import Config
-from models import db
+from app import db  # Import db from app instead of backend
+from models import Expense, Budget  # Ensure this is correct
 from routes import main
 
 def create_app():
