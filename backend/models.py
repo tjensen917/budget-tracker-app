@@ -1,6 +1,7 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 
-# Expense Model
+db = SQLAlchemy()
+
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(100), nullable=False)

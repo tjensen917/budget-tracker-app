@@ -15,6 +15,7 @@ def add_expense():
     db.session.add(expense)
     db.session.commit()
     return jsonify({"message": "Expense added successfully"}), 201
+
 @main.route("/expenses/<month_year>", methods=["GET"])
 def get_expenses(month_year):
     user_id = request.args.get("user_id")
