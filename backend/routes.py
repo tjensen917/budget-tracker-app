@@ -6,24 +6,15 @@ main = Blueprint('main', __name__)
 
 @main.route('/add-expense', methods=['POST'])
 def add_expense():
-    try:
-        data = request.json
-        user_id = data.get('user_id')
-        category = data.get('category')
-        amount = data.get('amount')
-        date = data.get('date')
+    data = request.json
+    if not all(k in data for k in ["user_id", "category", "amount", "date"]):
+        return jsonify({"error": "Missing required fields"}), 400
 
-        if not all([user_id, category, amount, date]):
-            return jsonify({"error": "Missing required fields"}), 400
-
-        new_expense = Expense(user_id=user_id, category=category, amount=amount, date=date)
-        db.session.add(new_expense)
-        db.session.commit()
-
-        return jsonify({"message": "Expense added successfully"}), 201
-    except Exception as e:
-        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
-
+    expense = Expense(user_id=data["user_id"], category=data["category"],
+                      amount=data["amount"], date=data["date"])
+    db.session.add(expense)
+    db.session.commit()
+    return jsonify({"message": "Expense added successfully"}), 201
 @main.route("/expenses/<month_year>", methods=["GET"])
 def get_expenses(month_year):
     user_id = request.args.get("user_id")
