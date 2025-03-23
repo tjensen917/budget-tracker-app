@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "https://budget-tracker-app-backend-njxe.onrender.com";
 
 export const addExpense = async (expenseData) => {
-  return await axios.post(`${BASE_URL}/add-expense`, {
+  return await axios.post(`${API_URL}/add-expense`, {
       user_id: expenseData.user_id || "test-user",  // Ensure this is included
       name: expenseData.name,
       amount: parseFloat(expenseData.amount),  // Convert to float
