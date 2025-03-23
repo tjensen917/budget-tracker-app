@@ -47,8 +47,8 @@ const ExpenseForm = ({ onExpenseAdded }) => {
             <input
                 type="month"
                 name="date"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                value={expense.date}
+                onChange={(e) => setExpense({ ...expense, date: e.target.value })}
             />
             <button type="submit">Add Expense</button>
         </form>
