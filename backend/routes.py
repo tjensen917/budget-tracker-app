@@ -8,8 +8,12 @@ main = Blueprint('main', __name__)
 def add_expense():
     data = request.get_json()
 
-    if not data or 'name' not in data or 'amount' not in data or 'user_id' not in data:
-        return jsonify({'error': 'Missing required fields'}), 400
+    # List all required fields
+    required_fields = ['name', 'amount', 'user_id', 'category', 'date']
+    missing_fields = [field for field in required_fields if field not in data]
+
+    if missing_fields:
+        return jsonify({'error': f"Missing required fields: {', '.join(missing_fields)}"}), 400
 
     new_expense = Expense(
         user_id=data['user_id'],

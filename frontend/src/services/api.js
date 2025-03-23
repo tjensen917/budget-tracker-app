@@ -16,7 +16,7 @@ export const addExpense = async (expenseData) => {
       name: expenseData.name,
       amount: parseFloat(expenseData.amount),  // Convert to float
       category: expenseData.category,
-      date: expenseData.date
+      date: expenseData.date,
   });
 };
 

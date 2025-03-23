@@ -27,6 +27,8 @@ const ExpenseForm = ({ onExpenseAdded }) => {
                 onChange={(e) => setExpense({ ...expense, amount: e.target.value})}
                 required
             />
+            
+
             <select
                 value={expense.category}
                 onChange={(e) => setExpense({ ...expense, category: e.target.value})}
@@ -41,6 +43,13 @@ const ExpenseForm = ({ onExpenseAdded }) => {
                 <option value="Bills">Bills</option>
                 <option value="Miscellaneous">Miscellaneous</option>
             </select>
+            <label>Date:</label>
+            <input
+                type="month"
+                name="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+            />
             <button type="submit">Add Expense</button>
         </form>
     );
