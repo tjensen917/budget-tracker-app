@@ -7,7 +7,7 @@ const ExpenseForm = ({ onExpenseAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addExpense(expense);
-        setExpense({name:"", amount: "", category:""});
+        setExpense({name:"", amount: "", category:"", date:"",});
         onExpenseAdded(); // Refresh expense list
     };
 
