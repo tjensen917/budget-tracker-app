@@ -1,8 +1,17 @@
 import axios from "axios";
+import { API_URL } from "./config"; // or wherever you're defining it
+
 
 const API_URL = "https://budget-tracker-app-backend-njxe.onrender.com";
 
 export const addExpense = async (expenseData) => {
+  console.log("Sending expense data to backend:", {
+    user_id: expenseData.user_id || "test-user",
+    name: expenseData.name,
+    amount: parseFloat(expenseData.amount),
+    category: expenseData.category,
+    date: expenseData.date,
+  });
   return await axios.post(`${API_URL}/add-expense`, {
       user_id: expenseData.user_id || "test-user",  // Ensure this is included
       name: expenseData.name,

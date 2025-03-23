@@ -16,7 +16,7 @@ def add_expense():
         name=data['name'],
         amount=float(data['amount']),
         category=data['category'],
-        date=data['date']
+        date=data['date'],
     )
 
     db.session.add(new_expense)
