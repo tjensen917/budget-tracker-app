@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_URL } from "./config"; // or wherever you're defining it
 
 
 const API_URL = "https://budget-tracker-app-backend-njxe.onrender.com";
